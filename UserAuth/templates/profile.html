@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='p-5'>
+    <h3 class='text-center text-primary p-3'>Welcome <span class='text-warning'>{{user.first_name}} {{user.last_name}}</span></h3>
+    <p class='text-center'>Email : {{user.email}}</p>
+
+    <div class='d-flex justify-content-center align-item-center' >
+        <a class="btn  btn-outline-primary" href="{% url "update" %}">
+        Edit Your Profile</a
+        >
+  </div>
+</div>
+
+
+<h4 class='text-center text-warning p-4'><span class='text-success'>Total</span> purchase <span class='badge bg-danger rounded-pill top-0'>{{data | length}}</span></h4>
+     
+               
+<div style="width: 75%; margin: auto;" class='shadow-sm'>
+          <div class="row gap-4 m-4">
+               {% for val in data %}
+               <div class="card col-3 shadow border border-start-0  border-warning" style="width: 18rem;">
+                    <img src="{{val.car.image.url}}" class="card-img-top p-1" alt="image of the Car">
+                    <div class="card-body text-center d-flex flex-column justify-content-center">
+                         <h5 class="card-title">{{val.car.Name}}</h5>
+                         <h6 class="card-title text-secondary">{{val.car.price}}$</h6>
+                         <h6 class="card-title">{{val.car.brand.Name}}</h6>
+                         
+                         <a href=" {% url "details_view" val.car.id %}" class="btn btn-dark">View Details</a>
+                    </div>
+               </div>
+               {% endfor %}
+          </div>
+</div>
+
+{% endblock content %}
