@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from . import forms
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from carModel.models import BuyCar
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 class RegistrationForms(CreateView):
     template_name = 'register.html'
@@ -67,6 +68,10 @@ class logOut(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         return response
+
+def logOut(request):
+    logout(request)
+    return  redirect('login')
 
 
 @method_decorator(login_required, name= 'dispatch')
